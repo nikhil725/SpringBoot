@@ -1,0 +1,75 @@
+import java.io.*;
+import java.util.*;
+public class ReadFileData {
+  static public String getContents(File aFile) {
+    StringBuilder contents = new StringBuilder();    
+    try {
+      BufferedReader input =  new BufferedReader(new FileReader(aFile));
+      try {
+        String line = null; //not declared within while loop
+        /*
+        * readLine is a bit quicky :
+        * it returns the content of a line MINUS the newline.
+        * it returns null only for the END of the stream.
+        * it returns an empty String if two newlines appear in a row.
+        */
+        while (( line = input.readLine()) != null){
+          contents.append(line);
+          contents.append(System.getProperty("line.separator"));
+        }
+      }
+      finally {
+        input.close();
+      }
+    }
+    catch (IOException ex){
+      ex.printStackTrace();
+    }
+    
+    return contents.toString();
+  }
+
+  public static void main (String... aArguments) throws IOException {
+    File testFile = new File("/home/bridgeit/gangadhar/Java/algorithm_pgm/file.txt");
+    System.out.println("Original file contents: " + getContents(testFile));
+    Scanner sc=new Scanner(System.in);
+    System.out.println("enter the word to search");
+    String key=sc.next();
+    StringTokenizer st=new StringTokenizer(getContents(testFile),",");
+    while(st.hasMoreTokens()==true)
+    {
+    	String token=st.nextToken();
+    	//System.out.println(token);
+    	char word[]=token.toCharArray();
+    	
+    	boolean index=ArraybinarySearch(word,key);
+    	if(index !=true)
+    	{
+    		System.out.println("word is found");
+    		
+    	}
+    	else {
+    		System.out.println("word is not found");
+    	}
+    	
+    	/*int m=token.length();
+    	int i;
+    	for(i=0;i<=m-1;i++)
+    	{
+    		System.out.print(word[i]+" ");
+    	}*/
+    }
+   // setContents(testFile, "The content of this file has been overwritten...");
+    //System.out.println("New file contents: " + getContents(testFile));
+  }
+
+private static boolean ArraybinarySearch(char[] word, String key) {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+/*private static boolean ArraybinarySearch(char[] word, String key) {
+	// TODO Auto-generated method stub
+	return true;*/
+}
+
